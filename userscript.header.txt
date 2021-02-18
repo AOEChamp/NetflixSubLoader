@@ -1,0 +1,11 @@
+// ==UserScript==
+// @name         NetflixSubLoader
+// @namespace    http://tampermonkey.net/
+// @version      1.0
+// @description  Load subtitles into Netflix
+// @author       Adeeb Mohammed
+// @match        https://www.netflix.com/*
+// @grant GM_setValue
+// @grant GM_getValue
+// @run-at document-start
+// ==/UserScript==
