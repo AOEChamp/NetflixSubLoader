@@ -84,11 +84,15 @@ const SubtitleDisplay = ({ selectedSub }) => {
     <div id="lln-subs-injected">
       {showSubtitles && (
         <div class="lln-subs-wrap">
-          <div class="lln-subs-font-adjust" style="font-size: 0.9em;">
-            <div class="lln-subs-separator"></div>
-            <div class="lln-whole-title-translation-wrap">
-              <div class="lln-whole-title-translation">
-                <span class="translationText balance-text">{subtitleText}</span>
+          <div class="lln-subs-font-adjust">
+            <div style="font-size: 0.9em;">
+              <div class="lln-subs-separator"></div>
+              <div class="lln-whole-title-translation-wrap">
+                <div class="lln-whole-title-translation">
+                  <span class="translationText balance-text">
+                    {subtitleText}
+                  </span>
+                </div>
               </div>
             </div>
           </div>

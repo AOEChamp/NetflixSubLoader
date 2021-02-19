@@ -1,7 +1,8 @@
 import { useRef, useEffect } from "react";
 import { parseSubtitle } from "../parsers/Parser";
 import { connect } from "react-redux";
-import { addSubtitle, selectSub } from "../redux/actions";
+import { addSubtitle, selectSub, cacheSub } from "../redux/actions";
+import { getMovieId } from "../utils/LLNInterface";
 
 const OffSubtitle = { name: "Off" };
 
@@ -28,17 +29,44 @@ const SubtitleEntry = ({ subtitle, isSelected, selectSub }) => {
   );
 };
 
-const SubtitlesPanel = ({ subtitles, selectedSub, addSubtitle, selectSub }) => {
+const SubtitlesPanel = ({
+  subtitles,
+  selectedSub,
+  cachedSubs,
+  addSubtitle,
+  selectSub,
+  cacheSub,
+}) => {
   const inputFileRef = useRef(null);
+  const movieIdRef = useRef(getMovieId());
+
   const onUpload = async (e) => {
     const file = e.target.files[0];
     const subData = await parseSubtitle(file);
-    const subtitle = { name: file.name, data: subData };
+    const subtitle = {
+      name: file.name,
+      data: subData,
+      movieId: movieIdRef.current,
+    };
     addSubtitle(subtitle);
     selectSub(subtitle);
+    cacheSub(subtitle);
+  };
+
+  const onSubSelected = (subtitle) => {
+    selectSub(subtitle);
+    if (subtitle != OffSubtitle) {
+      cacheSub(subtitle);
+    }
   };
 
   useEffect(() => {
+    if (subtitles.length == 0) {
+      const validSubs = cachedSubs.filter(
+        (s) => s.movieId === movieIdRef.current
+      );
+      validSubs.forEach(addSubtitle);
+    }
     if (!selectedSub.name) {
       selectSub(OffSubtitle);
     }
@@ -52,13 +80,13 @@ const SubtitlesPanel = ({ subtitles, selectedSub, addSubtitle, selectSub }) => {
           <SubtitleEntry
             subtitle={subtitle}
             isSelected={subtitle.name === selectedSub.name}
-            selectSub={selectSub}
+            selectSub={onSubSelected}
           />
         ))}
         <SubtitleEntry
           subtitle={OffSubtitle}
           isSelected={OffSubtitle.name === selectedSub.name}
-          selectSub={selectSub}
+          selectSub={onSubSelected}
         />
       </ul>
       <a
@@ -83,11 +111,13 @@ const SubtitlesPanel = ({ subtitles, selectedSub, addSubtitle, selectSub }) => {
 const mapStateToProps = (state) => ({
   subtitles: state.subtitleList.subtitles,
   selectedSub: state.subtitleList.selectedSub,
+  cachedSubs: state.subCache,
 });
 
 const mapDispatchToProps = {
   addSubtitle,
   selectSub,
+  cacheSub,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubtitlesPanel);
