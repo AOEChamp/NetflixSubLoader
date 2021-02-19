@@ -1,5 +1,6 @@
 import App from "./App";
+import { attachApp } from "./utils/Attacher";
 
 (() => {
-  App();
+  attachApp(App, ".popup-content.audio-subtitle-controller");
 })();

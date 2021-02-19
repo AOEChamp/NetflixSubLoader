@@ -24,5 +24,10 @@
     "webpack-cli": "^4.5.0",
     "webpack-dev-server": "^3.11.2",
     "webpack-sources": "^2.2.0"
+  },
+  "dependencies": {
+    "react-redux": "^7.2.2",
+    "redux": "^4.0.5",
+    "webvtt-parser": "^2.1.2"
   }
 }
