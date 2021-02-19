@@ -1,4 +1,5 @@
 import { WebVTTParser } from "webvtt-parser";
+import { stripTags } from "../utils/Utils";
 
 const parse = (data) => {
   const parser = new WebVTTParser();
@@ -6,7 +7,7 @@ const parse = (data) => {
   const subs = tree.cues.map((cue) => [
     cue.startTime * 1000,
     cue.endTime * 1000,
-    cue.text,
+    stripTags(cue.text),
   ]);
   return subs;
 };

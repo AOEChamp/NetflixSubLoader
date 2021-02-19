@@ -1,9 +1,14 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { parseSubtitle } from "../parsers/Parser";
 import { connect } from "react-redux";
-import { addSubtitle } from "../redux/actions";
+import { addSubtitle, selectSub } from "../redux/actions";
 
-const SubtitleEntry = ({ name, isSelected }) => {
+const OffSubtitle = { name: "Off" };
+
+const SubtitleEntry = ({ subtitle, isSelected, selectSub }) => {
+  const onSelect = () => {
+    selectSub(subtitle);
+  };
   if (isSelected) {
     return (
       <li class="track selected" tabindex="0">
@@ -12,34 +17,49 @@ const SubtitleEntry = ({ name, isSelected }) => {
             <use filter="" xlinkHref="#nfplayerCheck"></use>
           </svg>
         </span>
-        {name}
+        {subtitle.name}
       </li>
     );
   }
   return (
-    <li class="track" tabindex="0">
-      {name}
+    <li class="track" tabindex="0" onClick={onSelect}>
+      {subtitle.name}
     </li>
   );
 };
 
-const SubtitlesPanel = ({ subtitles, addSubtitle }) => {
+const SubtitlesPanel = ({ subtitles, selectedSub, addSubtitle, selectSub }) => {
   const inputFileRef = useRef(null);
   const onUpload = async (e) => {
     const file = e.target.files[0];
-    const subtitle = await parseSubtitle(file);
-    addSubtitle({ name: file.name, data: subtitle });
+    const subData = await parseSubtitle(file);
+    const subtitle = { name: file.name, data: subData };
+    addSubtitle(subtitle);
+    selectSub(subtitle);
   };
+
+  useEffect(() => {
+    if (!selectedSub.name) {
+      selectSub(OffSubtitle);
+    }
+  }, []);
+
   return (
     <div class="track-list structural track-list-subtitles">
       <h3 class="list-header">External Subs</h3>
       <ul>
-        {subtitles.map(({ name }) => (
-          <SubtitleEntry name={name} isSelected={false} />
+        {subtitles.map((subtitle) => (
+          <SubtitleEntry
+            subtitle={subtitle}
+            isSelected={subtitle.name === selectedSub.name}
+            selectSub={selectSub}
+          />
         ))}
-        <li class="track" tabindex="0">
-          Off
-        </li>
+        <SubtitleEntry
+          subtitle={OffSubtitle}
+          isSelected={OffSubtitle.name === selectedSub.name}
+          selectSub={selectSub}
+        />
       </ul>
       <a
         href="#"
@@ -62,10 +82,12 @@ const SubtitlesPanel = ({ subtitles, addSubtitle }) => {
 
 const mapStateToProps = (state) => ({
   subtitles: state.subtitleList.subtitles,
+  selectedSub: state.subtitleList.selectedSub,
 });
 
 const mapDispatchToProps = {
   addSubtitle,
+  selectSub,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubtitlesPanel);

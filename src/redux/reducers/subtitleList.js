@@ -1,7 +1,8 @@
-import { ADD_SUBTITLE } from "../actions";
+import { ADD_SUBTITLE, SELECT_SUB } from "../actions";
 
 const initialState = {
   subtitles: [],
+  selectedSub: {},
 };
 
 export default (state = initialState, action) => {
@@ -10,6 +11,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         subtitles: (state.subtitles || []).concat([action.payload.subtitle]),
+      };
+    case SELECT_SUB:
+      return {
+        ...state,
+        selectedSub: action.payload.subtitle,
       };
     default:
       return state;

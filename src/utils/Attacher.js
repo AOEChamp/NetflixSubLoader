@@ -15,16 +15,20 @@ export const onRemove = (element, callback) => {
   }).observe(document.body, { childList: true, subtree: true });
 };
 
-export const attachApp = async (App, attachSelector) => {
+export const attachApp = async (App, attachSelector, insertionCallback) => {
   const netflix = await waitForSelector("#appMountPoint");
   const attachPoint = attachSelector
     ? await waitForSelector(attachSelector)
     : netflix.parent;
   const container = document.createElement("div");
-  attachPoint.append(container);
+  insertionCallback
+    ? insertionCallback(attachPoint, container)
+    : attachPoint.append(container);
   onRemove(container, async () => {
     const newAttachPoint = await waitForSelector(attachSelector);
-    newAttachPoint.append(container);
+    insertionCallback
+      ? insertionCallback(newAttachPoint, container)
+      : newAttachPoint.append(container);
   });
   render(<App />, container);
 };
