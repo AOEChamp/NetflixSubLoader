@@ -5,3 +5,11 @@ export const getVideoTime = () => {
 export const getMovieId = () => {
   return unsafeWindow.lln?.subManager?.data?.mm?.movieId || 0;
 };
+
+export const pauseVideo = () => {
+  unsafeWindow.lln?.vidMan?.pause();
+};
+
+export const getLLNSubs = () => {
+  return unsafeWindow.lln?.subManager?.data?.subtitles || [];
+};

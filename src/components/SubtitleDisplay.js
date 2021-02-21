@@ -2,7 +2,6 @@ import { useRef, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { getVideoTime } from "../utils/LLNInterface";
 
-const timeSyncAlign = 0;
 const SUB_HIDE_DELAY = 125;
 
 const findNextSubIndex = (time, index, subtitles) => {
@@ -12,7 +11,8 @@ const findNextSubIndex = (time, index, subtitles) => {
   return index;
 };
 
-const SubtitleDisplay = ({ selectedSub }) => {
+const SubtitleDisplay = ({ selectedSub, alignment }) => {
+  const alignmentRef = useRef(alignment);
   const requestRef = useRef();
   const isSubDisplayedRef = useRef(false);
   const subIndexRef = useRef(0);
@@ -31,9 +31,9 @@ const SubtitleDisplay = ({ selectedSub }) => {
       return;
     }
 
-    const lastTime = lastTimeRef.current + timeSyncAlign;
+    const lastTime = lastTimeRef.current + alignmentRef.current;
     const curTimeRaw = getVideoTime();
-    const curTime = curTimeRaw + timeSyncAlign;
+    const curTime = curTimeRaw + alignmentRef.current;
     let shouldDisplaySub = isSubDisplayedRef.current;
     let newSubIndex = subIndexRef.current;
     let currentSub = currentSubtitles.data[newSubIndex];
@@ -80,10 +80,14 @@ const SubtitleDisplay = ({ selectedSub }) => {
     subIndexRef.current = 0;
   }, [selectedSub]);
 
+  useEffect(() => {
+    alignmentRef.current = alignment;
+  }, [alignment]);
+
   return (
     <div id="lln-subs-injected">
       {showSubtitles && (
-        <div class="lln-subs-wrap">
+        <div class="lln-subs-wrap" style="font-size: 35.0545px;">
           <div class="lln-subs-font-adjust">
             <div style="font-size: 0.9em;">
               <div class="lln-subs-separator"></div>
@@ -104,6 +108,7 @@ const SubtitleDisplay = ({ selectedSub }) => {
 
 const mapStateToProps = (state) => ({
   selectedSub: state.subtitleList.selectedSub,
+  alignment: state.movie.alignment,
 });
 
 export default connect(mapStateToProps)(SubtitleDisplay);

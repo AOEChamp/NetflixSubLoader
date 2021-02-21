@@ -28,6 +28,7 @@
   "dependencies": {
     "react-redux": "^7.2.2",
     "redux": "^4.0.5",
-    "webvtt-parser": "^2.1.2"
+    "webvtt-parser": "^2.1.2",
+    "xxhashjs": "^0.2.2"
   }
 }

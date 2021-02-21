@@ -1,8 +1,15 @@
 import { useRef, useEffect } from "react";
-import { parseSubtitle } from "../parsers/Parser";
+import { getData, parseSubtitle } from "../parsers/Parser";
 import { connect } from "react-redux";
-import { addSubtitle, selectSub, cacheSub } from "../redux/actions";
+import {
+  addSubtitle,
+  selectSub,
+  cacheSub,
+  showDialog,
+  DIALOGS,
+} from "../redux/actions";
 import { getMovieId } from "../utils/LLNInterface";
+import { hashFile } from "../utils/Utils";
 
 const OffSubtitle = { name: "Off" };
 
@@ -12,7 +19,7 @@ const SubtitleEntry = ({ subtitle, isSelected, selectSub }) => {
   };
   if (isSelected) {
     return (
-      <li class="track selected" tabindex="0">
+      <li class="track selected">
         <span class="video-controls-check">
           <svg class="svg-icon svg-icon-nfplayerCheck" focusable="false">
             <use filter="" xlinkHref="#nfplayerCheck"></use>
@@ -23,8 +30,16 @@ const SubtitleEntry = ({ subtitle, isSelected, selectSub }) => {
     );
   }
   return (
-    <li class="track" tabindex="0" onClick={onSelect}>
+    <li class="track" onClick={onSelect}>
       {subtitle.name}
+    </li>
+  );
+};
+
+const TrackButton = ({ title, onClick }) => {
+  return (
+    <li class="track" onClick={onClick}>
+      {title}
     </li>
   );
 };
@@ -36,21 +51,30 @@ const SubtitlesPanel = ({
   addSubtitle,
   selectSub,
   cacheSub,
+  showDialog,
 }) => {
   const inputFileRef = useRef(null);
   const movieIdRef = useRef(getMovieId());
 
   const onUpload = async (e) => {
     const file = e.target.files[0];
-    const subData = await parseSubtitle(file);
-    const subtitle = {
-      name: file.name,
-      data: subData,
-      movieId: movieIdRef.current,
-    };
-    addSubtitle(subtitle);
-    selectSub(subtitle);
-    cacheSub(subtitle);
+
+    const dataStr = await getData(file);
+    const hash = hashFile(dataStr);
+
+    if (!subtitles.find((s) => s.hash === hash)) {
+      const parsedData = parseSubtitle(dataStr);
+
+      const subtitle = {
+        name: file.name,
+        data: parsedData,
+        movieId: movieIdRef.current,
+        hash: hash,
+      };
+      addSubtitle(subtitle);
+      selectSub(subtitle);
+      cacheSub(subtitle);
+    }
   };
 
   const onSubSelected = (subtitle) => {
@@ -72,6 +96,10 @@ const SubtitlesPanel = ({
     }
   }, []);
 
+  const showAlignDialog = () => {
+    showDialog(DIALOGS.ALIGNMENT_DIALOG, {});
+  };
+
   return (
     <div class="track-list structural track-list-subtitles">
       <h3 class="list-header">External Subs</h3>
@@ -88,6 +116,7 @@ const SubtitlesPanel = ({
           isSelected={OffSubtitle.name === selectedSub.name}
           selectSub={onSubSelected}
         />
+        <TrackButton title="Align" onClick={showAlignDialog} />
       </ul>
       <a
         href="#"
@@ -118,6 +147,7 @@ const mapDispatchToProps = {
   addSubtitle,
   selectSub,
   cacheSub,
+  showDialog,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubtitlesPanel);
