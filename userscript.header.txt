@@ -1,9 +1,10 @@
 // ==UserScript==
 // @name         NetflixSubLoader
-// @namespace    http://tampermonkey.net/
+// @namespace    https://github.com/AOEChamp/NetflixSubLoader
 // @version      1.0
 // @description  Load subtitles into Netflix
 // @author       Adeeb Mohammed
+// @license      GPL-3.0
 // @match        https://www.netflix.com/*
 // @grant GM_setValue
 // @grant GM_getValue

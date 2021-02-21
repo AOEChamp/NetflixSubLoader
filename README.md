@@ -6,9 +6,9 @@ While using Netflix for studying language with the help of [Language Learning Ne
 
 ### Built With
 
-* [Preact](https://preactjs.com/) (lightweight React alternative)
-* Redux
-* Webpack/Babel
+- [Preact](https://preactjs.com/) (lightweight React alternative)
+- Redux
+- Webpack/Babel
 
 ## Getting Started
 
@@ -16,16 +16,18 @@ To use the script with Netflix, you will first need to set up a few things
 
 ### Prerequisites
 
-* A Netflix account
-* [Language Learning Netflix](https://languagelearningwithnetflix.com/)
-* [Tampermonkey](https://www.tampermonkey.net/)
-* (Optional) [Netflix - subtitle downloader](https://greasyfork.org/en/scripts/26654-netflix-subtitle-downloader)
+- A Netflix account
+- [Language Learning Netflix](https://languagelearningwithnetflix.com/)
+- [Tampermonkey](https://www.tampermonkey.net/)
+- (Optional) [Netflix - subtitle downloader](https://greasyfork.org/en/scripts/26654-netflix-subtitle-downloader)
 
 ### Supported Environments
+
 This project has only been tested on Chrome with Tampermonkey. Greasemonkey, Firefox, etc have not been tested and are not guaranteed to function correctly.
 
 ### Installation
 
+Download the latest release at [here](https://github.com/AOEChamp/NetflixSubLoader/releases) or on [GreasyFork](https://greasyfork.org/en/scripts/422105-netflixsubloader).
 Install the script to your browser using Tampermonkey. Navigate to Netflix.
 
 ### Usage
@@ -35,7 +37,8 @@ Under the subtitles menu, you will find a third section to load external subtitl
 ![image](https://user-images.githubusercontent.com/5560163/108628037-e2472b80-749b-11eb-9150-60a591a0bc07.png)
 
 Currently supported subtitle formats:
-* WEBVTT
+
+- WEBVTT
 
 After uploading a subtitle it will automatically be selected. It will also be cached for future use with the same title. Begin playing the video to see subtitles. Note that this script will display subtitles below any LLN subtitles. Subtitles will be displayed as plain text. In order to take advantage of LLN's language learning features, it is recommended to use LLN for the language you wish to learn, and this script for subtitles in your native language.
 
@@ -50,15 +53,19 @@ The first subtitle displayed will be the next LLN subtitle. Below it will be the
 You can also manually align by inputting a number in the box below. Values are in milliseconds. Negative numbers display the subtitle earlier, positive values delay it.
 
 ## Building
+
 For developers wishing to build or modify the script:
 
 ## Prerequisites
-* Node and npm
-* [Yarn 2](https://yarnpkg.com/getting-started/install)
+
+- Node and npm
+- [Yarn 2](https://yarnpkg.com/getting-started/install)
 
 ## Build
+
 1. `yarn install`
 2. `yarn build` for dev or `yarn package` for production
 
 ## Dev testing
+
 Use `yarn start` to start the webpack dev server. In the `dist` directory, a `devproxy.user.js` file will be generated. Installing this file in Tampermonkey will allow file changes to be picked up from webpack server on page refresh.

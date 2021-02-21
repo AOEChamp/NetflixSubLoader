@@ -1,7 +1,7 @@
 {
   "name": "NetflixSubLoader",
   "version": "1.0.0",
-  "description": "",
+  "description": "Load subtitles into Netflix",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -10,8 +10,8 @@
     "start": "webpack serve --mode=development"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Adeeb Mohammed",
+  "license": "GPL-3.0",
   "devDependencies": {
     "@babel/core": "^7.12.16",
     "@babel/plugin-proposal-class-properties": "^7.12.13",
