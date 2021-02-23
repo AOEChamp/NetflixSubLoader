@@ -2,8 +2,10 @@ export const getVideoTime = () => {
   return unsafeWindow.lln?.vidMan?.getRawTime() || 0;
 };
 
+const MOVIE_REGEX = /watch\/(\d+)\??/;
 export const getMovieId = () => {
-  return unsafeWindow.lln?.subManager?.data?.mm?.movieId || 0;
+  const match = MOVIE_REGEX.exec(window.location.href);
+  return match?.[1] || 0;
 };
 
 export const pauseVideo = () => {

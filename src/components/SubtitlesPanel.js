@@ -6,9 +6,9 @@ import {
   selectSub,
   cacheSub,
   showDialog,
+  clearSubs,
   DIALOGS,
 } from "../redux/actions";
-import { getMovieId } from "../utils/LLNInterface";
 import { hashFile } from "../utils/Utils";
 
 const OffSubtitle = { name: "Off" };
@@ -52,17 +52,22 @@ const SubtitlesPanel = ({
   selectSub,
   cacheSub,
   showDialog,
+  movieId,
+  clearSubs,
 }) => {
   const inputFileRef = useRef(null);
-  const movieIdRef = useRef(getMovieId());
 
   const onUpload = async (e) => {
     const file = e.target.files[0];
+    e.target.value = null;
 
     const dataStr = await getData(file);
     const hash = hashFile(dataStr);
+    const dup = subtitles.find((s) => s.hash === hash);
 
-    if (!subtitles.find((s) => s.hash === hash)) {
+    if (dup) {
+      selectSub(dup);
+    } else {
       const parsedData = parseSubtitle(dataStr);
       if (parsedData === null) {
         alert("This subtitle could not be loaded");
@@ -72,7 +77,7 @@ const SubtitlesPanel = ({
       const subtitle = {
         name: file.name,
         data: parsedData,
-        movieId: movieIdRef.current,
+        movieId: movieId,
         hash: hash,
       };
       addSubtitle(subtitle);
@@ -89,16 +94,11 @@ const SubtitlesPanel = ({
   };
 
   useEffect(() => {
-    if (subtitles.length == 0) {
-      const validSubs = cachedSubs.filter(
-        (s) => s.movieId === movieIdRef.current
-      );
-      validSubs.forEach(addSubtitle);
-    }
-    if (!selectedSub.name) {
-      selectSub(OffSubtitle);
-    }
-  }, []);
+    clearSubs();
+    const validSubs = cachedSubs.filter((s) => s.movieId === movieId);
+    validSubs.forEach(addSubtitle);
+    selectSub(OffSubtitle);
+  }, [movieId]);
 
   const showAlignDialog = () => {
     showDialog(DIALOGS.ALIGNMENT_DIALOG, {});
@@ -145,6 +145,7 @@ const mapStateToProps = (state) => ({
   subtitles: state.subtitleList.subtitles,
   selectedSub: state.subtitleList.selectedSub,
   cachedSubs: state.subCache,
+  movieId: state.movie.movieId,
 });
 
 const mapDispatchToProps = {
@@ -152,6 +153,7 @@ const mapDispatchToProps = {
   selectSub,
   cacheSub,
   showDialog,
+  clearSubs,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubtitlesPanel);
