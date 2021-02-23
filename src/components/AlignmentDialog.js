@@ -26,11 +26,10 @@ const AlignmentDialog = ({
   const nextAlignValue =
     nextOwnSub && nextLLNSub && nextOwnSub[0] - nextLLNSub.begin;
 
-  // this doesn't update when the lln sub changes, need to rethink
   useEffect(() => {
     const idx = ownSubs.findIndex((s) => s[0] >= nextLLNSub.begin + alignment);
     setNextSubIndex(idx == -1 ? 0 : idx);
-  }, [alignment, selectedSub]);
+  }, [alignment, selectedSub, hidden]);
 
   const onInputChange = (e) => {
     const newAlign = parseInt(e.target.value, 10) || 0;
