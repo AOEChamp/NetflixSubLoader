@@ -82,6 +82,7 @@ const SubtitleDisplay = ({ selectedSub, alignment }) => {
 
   useEffect(() => {
     alignmentRef.current = alignment;
+    subIndexRef.current = 0;
   }, [alignment]);
 
   return (
