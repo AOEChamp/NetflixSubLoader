@@ -39,6 +39,7 @@ Under the subtitles menu, you will find a third section to load external subtitl
 Currently supported subtitle formats:
 
 - WEBVTT
+- SRT
 
 After uploading a subtitle it will automatically be selected. It will also be cached for future use with the same title. Begin playing the video to see subtitles. Note that this script will display subtitles below any LLN subtitles. Subtitles will be displayed as plain text. In order to take advantage of LLN's language learning features, it is recommended to use LLN for the language you wish to learn, and this script for subtitles in your native language.
 

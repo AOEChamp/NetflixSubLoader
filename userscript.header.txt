@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         NetflixSubLoader
 // @namespace    https://github.com/AOEChamp/NetflixSubLoader
-// @version      1.0
+// @version      1.0.1
 // @description  Load subtitles into Netflix
 // @author       Adeeb Mohammed
 // @license      GPL-3.0

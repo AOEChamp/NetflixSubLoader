@@ -1,6 +1,6 @@
 {
   "name": "NetflixSubLoader",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Load subtitles into Netflix",
   "main": "index.js",
   "scripts": {
