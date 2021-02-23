@@ -1,4 +1,5 @@
 import WebVTTParser from "./WebVTTParser";
+import SRTParser from "./SRTParser";
 
 const getFirstLine = (text) => {
   const index = text.indexOf("\n");
@@ -13,7 +14,14 @@ export const getData = async (file) => {
 
 export const parseSubtitle = (data) => {
   const firstLine = getFirstLine(data);
-  if (firstLine.includes("WEBVTT")) {
-    return WebVTTParser.parse(data);
+  try {
+    if (firstLine.includes("WEBVTT")) {
+      return WebVTTParser.parse(data);
+    } else {
+      return SRTParser.parse(data);
+    }
+  } catch (e) {
+    console.log("error parsing subtitles: " + e.message);
   }
+  return null;
 };

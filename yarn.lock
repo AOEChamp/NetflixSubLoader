@@ -1483,6 +1483,7 @@ __metadata:
     preact: ^10.5.12
     react-redux: ^7.2.2
     redux: ^4.0.5
+    subtitles-parser: ^0.0.2
     webpack: ^5.22.0
     webpack-cli: ^4.5.0
     webpack-dev-server: ^3.11.2
@@ -5727,6 +5728,13 @@ resolve@^1.9.0:
   version: 2.0.0
   resolution: "strip-final-newline@npm:2.0.0"
   checksum: 74dbd8a602409706748db730200efab53ba739ed7888310e74e45697efbd760981df6d6f0fa34b23e973135fb07d3b22adae6e6d58898f692a094e49692c6c33
+  languageName: node
+  linkType: hard
+
+"subtitles-parser@npm:^0.0.2":
+  version: 0.0.2
+  resolution: "subtitles-parser@npm:0.0.2"
+  checksum: 2980a65ba0822ebbd3e74f07e02f7534951385283b669a8d1ac177b5dbcf0ab28326c00c82e4b710a9bac5fdd4feb58762b3f5d5bafa3a7908048c5a4b4480cb
   languageName: node
   linkType: hard
 

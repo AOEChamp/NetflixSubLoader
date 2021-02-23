@@ -64,6 +64,10 @@ const SubtitlesPanel = ({
 
     if (!subtitles.find((s) => s.hash === hash)) {
       const parsedData = parseSubtitle(dataStr);
+      if (parsedData === null) {
+        alert("This subtitle could not be loaded");
+        return;
+      }
 
       const subtitle = {
         name: file.name,
