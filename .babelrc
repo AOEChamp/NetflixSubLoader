@@ -8,5 +8,10 @@
         "pragmaFrag": "Fragment"
       }
     ]
-  ]
+  ],
+  "env": {
+    "test": {
+      "plugins": ["preact-require", "@babel/plugin-transform-modules-commonjs"]
+    }
+  }
 }

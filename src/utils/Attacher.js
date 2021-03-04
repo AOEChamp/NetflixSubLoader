@@ -1,4 +1,4 @@
-import { render } from "preact";
+import { render } from "react";
 
 export const waitForSelector = async (selector) => {
   while (document.querySelector(selector) === null) {
@@ -16,10 +16,7 @@ export const onRemove = (element, callback) => {
 };
 
 export const attachApp = async (App, attachSelector, insertionCallback) => {
-  const netflix = await waitForSelector("#appMountPoint");
-  const attachPoint = attachSelector
-    ? await waitForSelector(attachSelector)
-    : netflix.parent;
+  const attachPoint = await waitForSelector(attachSelector);
   const container = document.createElement("div");
   insertionCallback
     ? insertionCallback(attachPoint, container)

@@ -8,13 +8,21 @@ import { onUrlChange } from "./utils/Utils";
 import { getMovieId } from "./utils/LLNInterface";
 
 (() => {
-  attachApp(App, ".popup-content.audio-subtitle-controller");
-  attachApp(DisplayApp, "#lln-subs-content", (attachPoint, container) => {
-    attachPoint.parentNode.insertBefore(container, attachPoint.nextSibling);
-  });
-  attachApp(DialogApp, "#lln-options-modal", (attachPoint, container) => {
-    attachPoint.parentNode.insertBefore(container, attachPoint.nextSibling);
-  });
+  attachApp(App, "#appMountPoint .popup-content.audio-subtitle-controller");
+  attachApp(
+    DisplayApp,
+    "#appMountPoint #lln-subs-content",
+    (attachPoint, container) => {
+      attachPoint.parentNode.insertBefore(container, attachPoint.nextSibling);
+    }
+  );
+  attachApp(
+    DialogApp,
+    "#appMountPoint #lln-options-modal",
+    (attachPoint, container) => {
+      attachPoint.parentNode.insertBefore(container, attachPoint.nextSibling);
+    }
+  );
   onUrlChange(() => {
     const movieId = getMovieId();
     if (store.getState().movie.movieId !== movieId) {
