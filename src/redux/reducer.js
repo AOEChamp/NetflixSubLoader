@@ -5,10 +5,12 @@ import settings from "./reducers/settings";
 import dialogs from "./reducers/dialogs";
 import movie from "./reducers/movie";
 
-export default combineReducers({
+export const reducers = {
   subtitleList,
   subCache,
   settings,
   dialogs,
   movie,
-});
+};
+
+export default combineReducers(reducers);

@@ -1319,9 +1319,11 @@ __metadata:
     babel-plugin-preact-require: ^1.0.0
     clean-webpack-plugin: ^3.0.0
     jest: ^26.6.3
+    jest-localstorage-mock: ^2.4.7
     preact: ^10.5.12
     react-redux: ^7.2.2
     redux: ^4.0.5
+    redux-mock-store: ^1.5.4
     subtitles-parser: ^0.0.2
     webpack: ^5.22.0
     webpack-cli: ^4.5.0
@@ -4500,6 +4502,13 @@ fsevents@^2.1.2:
   languageName: node
   linkType: hard
 
+"jest-localstorage-mock@npm:^2.4.7":
+  version: 2.4.7
+  resolution: "jest-localstorage-mock@npm:2.4.7"
+  checksum: a82c34747ca3ce7457ec7a4501e9d74626dc5ccf8ebc59494f08cc5d69125fe26eb05e4d5bb9acfde3669a5e7fddf78bdb78330fdda48d7b60a355730a54cc58
+  languageName: node
+  linkType: hard
+
 "jest-matcher-utils@npm:^26.6.2":
   version: 26.6.2
   resolution: "jest-matcher-utils@npm:26.6.2"
@@ -5005,6 +5014,13 @@ fsevents@^2.1.2:
   dependencies:
     p-locate: ^4.1.0
   checksum: c58f49d45c8672d0a290dea0ce41fcb27205b3f2d61452ba335ef3b42ad36c10c31b1f061b46d96dd4b81e9a00e8a2897bc124d75623b80a9f6d36b1e754a6b5
+  languageName: node
+  linkType: hard
+
+"lodash.isplainobject@npm:^4.0.6":
+  version: 4.0.6
+  resolution: "lodash.isplainobject@npm:4.0.6"
+  checksum: 72a114b610ec32a42b8cb47680d1729398caea0ee0631c0b220b97b21e7df19312377cb077acb6593bf6c5abdbdb43c530aa66b440e30d53324986d386808cd0
   languageName: node
   linkType: hard
 
@@ -6184,6 +6200,15 @@ fsevents@^2.1.2:
   dependencies:
     resolve: ^1.9.0
   checksum: 1d4cc8db1d4ff51d4c156db7ff6fe0a376e7527b61afafd148f1cfa2c19a6c454f3f77f1cb175e1f1f1476a83dbeba3632de088441dbaa404091a30d39c8749f
+  languageName: node
+  linkType: hard
+
+"redux-mock-store@npm:^1.5.4":
+  version: 1.5.4
+  resolution: "redux-mock-store@npm:1.5.4"
+  dependencies:
+    lodash.isplainobject: ^4.0.6
+  checksum: 4ddc3c5bec8717614c1cb9cabf822938dd45e02afe0acde9f5a74da9361a2792cc768526c87f058ea52d5252e991ed046159602152e56057bedab2a1b9512598
   languageName: node
   linkType: hard
 

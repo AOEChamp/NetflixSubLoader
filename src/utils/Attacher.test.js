@@ -36,5 +36,6 @@ describe("attachApp", () => {
     const { container: container2 } = render(<div id="attach-point" />);
     appElement = await screen.findByTestId("app");
     expect(appElement?.parentNode?.parentNode).toBe(container2.children[0]);
+    cleanup();
   });
 });
